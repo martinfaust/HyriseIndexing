@@ -1,0 +1,34 @@
+{
+    "operators": {
+        "load_example": {
+            "type": "TableLoad",
+            "table": "order_example",
+            "filename": "../../example.tbl"
+            },
+	"filter_order_id": {
+            "type": "SimpleTableScan",
+            "predicates" : [
+            {"type": "AND"},
+                { "type": "EQ", "in": 0, "f": "order_id", "value": 2, "vtype": 0}, //vtype 0 int , 2 string
+		         { "type": "EQ", "in": 0, "f": "customer_country", "value": "DE", "vtype": 2}
+                        ]
+             },
+    "project" :{
+        "type":"ProjectionScan",
+        "fields":["customer_country","order_id","order_line_value"]
+        },
+    "hashbuild": {
+        "type":"HashBuild",
+        "key":"groupby",
+        "fields":["customer_country"]
+    },
+    "groupby":{
+        "type":"GroupByScan",
+        "fields":"customer_country",
+        "functions":[{"type":"SUM", "field":"order_line_value", "as":"sumordervalue"}]
+
+    }
+
+    },
+    "edges" : [["load_example","filter_order_id"],["filter_order_id","project"],["project","hashbuild"],["hashbuild","groupby"],["project","groupby"]]
+}
