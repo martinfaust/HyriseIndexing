@@ -3,7 +3,7 @@
         "load_example": {
             "type": "TableLoad",
             "table": "order_example",
-            "filename": "../../example.tbl"
+            "filename": "../../Dropbox/HyriseIndexing/example.tbl"
             },
 	"filter_order_id": {
             "type": "SimpleTableScan",
