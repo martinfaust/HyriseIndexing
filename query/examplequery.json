@@ -3,14 +3,15 @@
         "load_example": {
             "type": "TableLoad",
             "table": "order_example",
-            "filename": "../../Dropbox/HyriseIndexing/example.tbl"
+            "filename": "../../Dropbox/HyriseIndexing/datagen/example.tbl"
             },
 	"filter_order_id": {
             "type": "SimpleTableScan",
             "predicates" : [
-            {"type": "AND"},
-                { "type": "EQ", "in": 0, "f": "order_id", "value": 2, "vtype": 0}, //vtype 0 int , 2 string
-		         { "type": "EQ", "in": 0, "f": "customer_country", "value": "DE", "vtype": 2}
+            {"type": "OR"},
+                 //{ "type": "EQ", "in": 0, "f": "order_id", "value": 2, "vtype": 0}, //vtype 0 int , 2 string
+		         { "type": "EQ", "in": 0, "f": "customer_country", "value": "DE", "vtype": 2},
+                 { "type": "EQ", "in": 0, "f": "customer_country", "value": "CH", "vtype": 2}
                         ]
              },
     "project" :{
@@ -24,7 +25,7 @@
     },
     "groupby":{
         "type":"GroupByScan",
-        "fields":"customer_country",
+        "fields":["customer_country"],
         "functions":[{"type":"SUM", "field":"order_line_value", "as":"sumordervalue"}]
 
     }
