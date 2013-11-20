@@ -1,3 +1,4 @@
+// Essentially models """ Select customer_country, sum(order_line_value) from order_lines where customer_country in ('DE','CH') group by customer_country """
 {
     "operators": {
         "load_example": {
