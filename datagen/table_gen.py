@@ -5,6 +5,9 @@ from random import randint
 from numpy import cumsum
 from numpy.random import rand
 
+"""Creates an example table to load into hyrise"""
+NR_OF_ORDERS =100
+ORDERLINES_PER_ORDER = 20
 
 def weightedChoice(weights, objects):
     """Return a random item from objects, with the weighting defined by weights 
@@ -282,22 +285,8 @@ print "==="
 
 
 # print out orders
-for order_id in range(100):
+for order_id in range(NR_OF_ORDERS):
 	order_value = 1 
 	cust_country = weightedChoice(weights, codes_only)
-	for order_pos in range(randint(1,20)):
+	for order_pos in range(randint(1,ORDERLINES_PER_ORDER)):
 		print '''%i|%i|%i|"%s"''' % (order_id,order_pos,order_value,cust_country)
-
-"""
-{
-    "operators": {
-        "load_example": {
-            "type": "TableLoad",
-            "table": "order_example",
-            "filename": "db/example.tbl"
-            }
-        }
-    },
-    "edges" : [["load_example","load_example"]
-}
-"""
