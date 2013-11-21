@@ -6,6 +6,7 @@
             "table": "order_example",
             "filename": "../../Dropbox/HyriseIndexing/datagen/example.tbl"
             },
+          "merge":{"type":"MergeStore"},
 	"filter_order_id": {
             "type": "SimpleTableScan",
             "predicates" : [
@@ -32,5 +33,5 @@
     }
 
     },
-    "edges" : [["load_example","filter_order_id"],["filter_order_id","project"],["project","hashbuild"],["hashbuild","groupby"],["project","groupby"]]
+    "edges" : [["load_example","merge"],["merge","filter_order_id"],["filter_order_id","project"],["project","hashbuild"],["hashbuild","groupby"],["project","groupby"]]
 }
