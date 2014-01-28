@@ -1,0 +1,18 @@
+// Essentially models """ Select customer_country, sum(order_line_value) from order_lines where customer_country in ('DE','CH') group by customer_country """
+{
+    "operators": {
+        "load_example": {
+            "type": "TableLoad",
+            "table": "order_example",
+            "filename": "/home/martinfaust/HyriseIndexing/datagen/example.tbl"
+            },
+    //"merge":{"type":"MergeStore"},	
+    "createcompound":{
+        "type":"CreateGroupkeyIndex",
+        "table": "order_example",
+        "index_name":"order_example_idx",
+        "fields":["order_pos","order_id"]
+    }
+    },
+    "edges" : [["load_example","createcompound"]]
+}

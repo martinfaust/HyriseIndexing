@@ -1,0 +1,25 @@
+{
+    "operators": {
+    	 "retrieve": {
+            "type" : "GetTable",
+            "name" : "order_example"
+        },
+		 "1_delta": {
+      			"type": "CreateDeltaIndex",
+			      "fields": ["order_pos","order_id"],
+		          "index_name": "idx_delta_order_example"
+		    },
+		"commit" : {
+            "type" : "Commit"
+        }
+    },
+    "edges" : [
+        ["retrieve", "1_delta"],
+        ["1_delta","commit"]
+
+    ]
+}
+
+
+
+

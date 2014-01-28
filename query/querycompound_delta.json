@@ -1,0 +1,22 @@
+// Essentially models """ Select customer_country, sum(order_line_value) from order_lines where customer_country in ('DE','CH') group by customer_country """
+//vtype 0 int , 2 string
+{
+    "operators": {
+       "load_example": {
+            "type": "TableLoad",
+            "table": "order_example",
+            "filename": "/home/martinfaust/HyriseIndexing/datagen/example.tbl"
+        },
+        "queryindex_withdelta": {
+            "type": "CompoundIndexAwareTableScan",
+            "index_name" : "order_example_idx",
+            "delta_index_name" : "idx_delta_order_example",
+            "fields" : ["order_pos","order_id"],
+      	    "search_keys" :[77,9999],
+             "predicates" : [
+                {"type" : "EQ_V", "in" : 0, "f" : "employee_company_id", "value" : 3}
+              ] 
+        }
+    },
+    "edges" : [["load_example","queryindex_withdelta"]]
+}
